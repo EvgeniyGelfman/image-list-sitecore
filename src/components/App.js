@@ -6,7 +6,7 @@ import executeGetRequest from '../apis/api-unsplash';
 
 import ImageList from './image-list/ImageList';
 import Loading from './loading/Loading';
-import constants from '../constants';
+import {THROTTLER_TIME, IMAGES_PER_REQUEST, SEARCH_TERM, IMAGES_PER_BIG_REQUEST} from '../constants';
 
 class App extends React.Component {
     constructor(props) {
@@ -25,12 +25,12 @@ class App extends React.Component {
     }
 
     componentWillMount() {
-        // this.getImages();
+        this.getImages(IMAGES_PER_REQUEST);
     }
 
     componentDidMount() {
-        const handleScroll = throttle(constants.THROTTLER_TIME, this.checkWindowScroll);
-        const handleResize = throttle(constants.THROTTLER_TIME, this.checkWindowScroll);
+        const handleScroll = throttle(THROTTLER_TIME, this.checkWindowScroll);
+        const handleResize = throttle(THROTTLER_TIME, this.checkWindowScroll);
 
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('resize', handleResize);
@@ -42,12 +42,10 @@ class App extends React.Component {
         if (error || isLoading) return;
 
         if (
-            // window.innerHeight + document.documentElement.scrollTop
-            // === document.documentElement.scrollHeight
             document.querySelector('.image-list').scrollTop + window.innerHeight >=
-            document.documentElement.scrollHeight
+            document.querySelector('.image-list').scrollHeight
         ) {
-            this.getImages(constants.IMAGES_PER_REQUEST);
+            this.getImages(IMAGES_PER_REQUEST);
         }
     }
 
@@ -56,7 +54,7 @@ class App extends React.Component {
 
         this.setState({isLoading: true});   
 
-        executeGetRequest(constants.SEARCH_TERM, pageNumber, per_page)
+        executeGetRequest(SEARCH_TERM, pageNumber, per_page)
             .then(response => {
                 const {results} = response.data;
                 const imageCollection = results.map(item => { 
@@ -100,7 +98,7 @@ class App extends React.Component {
                     shouldShowButton &&
                     <button
                         className="ui primary button"
-                        onClick={() => this.getImages(constants.IMAGES_PER_BIG_REQUEST)}
+                        onClick={() => this.getImages(IMAGES_PER_BIG_REQUEST)}
                     >
                         Show more
                     </button>
