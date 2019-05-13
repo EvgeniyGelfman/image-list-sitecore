@@ -1,0 +1,23 @@
+$imgDimention: 140px;
+
+.image-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($imgDimention, 1fr));
+    grid-gap: 1px;
+    justify-items: center;
+    max-height: 700px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: border-box;
+
+    img {
+        width: $imgDimention;
+        height: $imgDimention;
+        border: 1px solid #333333;
+        align-self: auto;
+    }
+}
+
+.ui.segment.image-list {
+    padding: 20px;
+}
