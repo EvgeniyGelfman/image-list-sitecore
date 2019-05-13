@@ -71,7 +71,8 @@ class App extends React.Component {
                     pageNumber: state.pageNumber + 1
                 }));
 
-                if(this.state.images.length >=50) {
+                // the reason behind 60 and not 200 is that api returns only 30 items as a max for a free account
+                if(this.state.images.length > 60) {
                     this.setState({shouldShowButton: true});
                     window.removeEventListener('scroll');
                     window.removeEventListener('resize');
