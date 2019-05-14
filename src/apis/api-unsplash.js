@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {PUBLIC_KEY, URL, COLLECTION} from '../constants';
 
-const executeGetRequest = (term, page, per_page) => {
+export default function executeGetRequest(term, page, per_page) {
     return axios.get(`${URL}/${COLLECTION}`, {
         headers: {
             Authorization: `Client-ID ${PUBLIC_KEY}`
@@ -13,5 +13,3 @@ const executeGetRequest = (term, page, per_page) => {
         }
     })
 };
-
-export default executeGetRequest;
