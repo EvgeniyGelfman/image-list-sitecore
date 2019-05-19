@@ -22,6 +22,7 @@ class App extends React.Component {
 
         this.checkWindowScroll = this.checkWindowScroll.bind(this);
         this.getImages = this.getImages.bind(this);
+        this.imageList = null;
     }
 
     componentWillMount() {
@@ -31,8 +32,9 @@ class App extends React.Component {
     componentDidMount() {
         const handleScroll = throttle(THROTTLER_TIME, this.checkWindowScroll);
         const handleResize = throttle(THROTTLER_TIME, this.checkWindowScroll);
+        this.imageList = document.querySelector('.image-list');
 
-        window.addEventListener('scroll', handleScroll);
+        this.imageList.addEventListener('scroll', handleScroll);
         window.addEventListener('resize', handleResize);
     }
 
@@ -41,10 +43,7 @@ class App extends React.Component {
 
         if (error || isLoading) return;
 
-        if (
-            document.querySelector('.image-list').scrollTop + window.innerHeight >=
-            document.querySelector('.image-list').scrollHeight
-        ) {
+        if (this.imageList.scrollTop + window.innerHeight >= this.imageList.scrollHeight) {
             this.getImages(IMAGES_PER_REQUEST);
         }
     }

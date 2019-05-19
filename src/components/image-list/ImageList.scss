@@ -8,7 +8,7 @@ $imgDimention: 140px;
     max-height: 700px;
     overflow-y: scroll;
     overflow-x: hidden;
-    box-sizing: border-box;
+    box-sizing: content-box;
 
     img {
         width: $imgDimention;
